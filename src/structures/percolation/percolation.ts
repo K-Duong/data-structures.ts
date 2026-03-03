@@ -21,16 +21,26 @@ export class Percolation {
   /**
    * Initializes a percolation system with all sites initially blocked.
    * @param size The size of the grid (N x N).
+   * @param grid Optional initial grid state. If provided, size is ignored and recalculated from the grid.
    * @throws {Error} if size <= 0.
    */
-  public constructor(size: number) {
-    if (size <= 0) {
-      throw new Error(`size must be greater than 0, received: ${size}`);
+  public constructor(size: number, grid?: boolean[][]) {
+    if (grid) {
+      this._size = grid.length;
+      if (this._size <= 0) {
+        throw new Error(`size must be greater than 0, received: ${this._size}`);
+      }
+      // Deep copy the grid to prevent external mutations
+      this._sites = grid.map(row => [...row]);
+    } else {
+      if (size <= 0) {
+        throw new Error(`size must be greater than 0, received: ${size}`);
+      }
+      this._size = size;
+  
+      // Initialize an N-by-N grid with all sites closed (false)
+      this._sites = Array(size).fill(null).map(() => Array(size).fill(false));
     }
-    this._size = size;
-
-    // Initialize an N-by-N grid with all sites closed (false)
-    this._sites = Array(size).fill(null).map(() => Array(size).fill(false));
   }
 
   /**
