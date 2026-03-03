@@ -1,5 +1,5 @@
 import { registerStructure } from '../../registry';
-import { LinkedList } from './LinkedList';
+import { LinkedList } from './linked-list';
 
 registerStructure({
   name: 'LinkedList',

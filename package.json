@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "TypeScript Implementation of Data Structures",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "cli": "ts-node src/cli.ts",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

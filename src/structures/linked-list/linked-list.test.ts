@@ -1,4 +1,4 @@
-import { LinkedList } from './LinkedList';
+import { LinkedList } from './linked-list';
 
 describe('LinkedList', () => {
   it('should append values correctly', () => {
