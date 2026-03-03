@@ -11,6 +11,7 @@
     "build": "tsc",
     "cli": "ts-node src/cli.ts",
     "test": "jest",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run build"
   },
   "repository": {
