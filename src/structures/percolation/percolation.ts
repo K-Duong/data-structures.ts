@@ -37,7 +37,7 @@ export class Percolation {
         throw new Error(`size must be greater than 0, received: ${size}`);
       }
       this._size = size;
-  
+
       // Initialize an N-by-N grid with all sites closed (false)
       this._sites = Array(size).fill(null).map(() => Array(size).fill(false));
     }
@@ -92,11 +92,35 @@ export class Percolation {
 
   /**
    * Checks if the system percolates (if there is a path from top to bottom).
-   * @returns {boolean} True if the system percolates. (TODO)
+   * @returns {boolean} True if the system percolates. 
    */
   public percolates(): boolean {
-    // TODO: implement actual percolation check algorithm (e.g. Union Find)
-    return true;
+    // shalow array of sites to group connected sites by a root id = row * size + col
+    // the default array contains only (-1);
+    const connectedSite: number[][] = Array(this._size).fill(null).map((r) => Array(this._size).fill(-1));
+
+    // group all connected site by differents root id
+    for (let row = 0; row < this._size; row++) {
+      for (let col = 0; col < this._size; col++) {
+        if (this.isOpen(row, col)) {
+          // check if the upper site or the left site contains the root id
+          if (row > 0 && connectedSite[row - 1][col] >= 0) {
+            connectedSite[row][col] = connectedSite[row - 1][col];
+          } else if (col > 0 && connectedSite[row][col - 1] >= 0) {
+            connectedSite[row][col] = connectedSite[row][col - 1];
+          }else {
+            connectedSite[row][col] = row * this._size + col;
+          }
+        }
+      }
+    }
+
+    // console.log(connectedSite);
+
+    const lastRow = connectedSite[connectedSite.length - 1];
+
+    return lastRow.some((cell) => cell >= 0 && cell < this._size);
   }
-}
+};
+
 

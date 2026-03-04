@@ -39,8 +39,22 @@ describe('Percolation', () => {
     expect(() => perc.isOpen(-1, 0)).toThrow();
   });
 
-  it('percolates() should return true (placeholder)', () => {
+  it('percolates() should return false', () => {
     const perc = new Percolation(3);
+    expect(perc.percolates()).toBe(false);
+  });
+   it('percolates() should return true', () => {
+    const perc = new Percolation(3);
+    perc.open(0,2);
+    perc.open(1,2);
+    perc.open(2,2);
     expect(perc.percolates()).toBe(true);
+  });
+   it('percolates() should return false', () => {
+    const perc = new Percolation(3);
+    perc.open(0,1);
+    perc.open(1,2);
+    perc.open(2,2);
+    expect(perc.percolates()).toBe(false);
   });
 });
